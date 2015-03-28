@@ -1,0 +1,160 @@
+﻿<Page
+    x:Name="pageRoot"
+    x:Class="App1Windows_API_hashtag_mclogin.GroupedItemsPage"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App1Windows_API_hashtag_mclogin"
+    xmlns:data="using:App1Windows_API_hashtag_mclogin.Data"
+    xmlns:common="using:App1Windows_API_hashtag_mclogin.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <x:String x:Key="ChevronGlyph">&#xE26B;</x:String>
+        <!--
+            Collection of grouped items displayed by this page, bound to a subset
+            of the complete item list because items in groups cannot be virtualized
+        -->
+        <CollectionViewSource
+            x:Name="groupedItemsViewSource"
+            Source="{Binding Groups}"
+            IsSourceGrouped="true"
+            ItemsPath="Items"
+            d:Source="{Binding Groups, Source={d:DesignData Source=/DataModel/SampleData.json, Type=data:SampleDataSource}}"/>
+    </Page.Resources>
+
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Horizontal scrolling grid -->
+        <GridView
+            x:Name="itemGridView"
+            AutomationProperties.AutomationId="ItemGridView"
+            AutomationProperties.Name="Grouped Items"
+            Grid.RowSpan="2"
+            Padding="116,137,40,46"
+            ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
+            SelectionMode="None"
+            IsSwipeEnabled="false"
+            IsItemClickEnabled="True"
+            ItemClick="ItemView_ItemClick">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Left" Width="250" Height="250">
+                        <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                            <Image Source="{Binding ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
+                            <TextBlock Text="{Binding Title}" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" Height="60" Margin="15,0,15,0"/>
+                            <TextBlock Text="{Binding Subtitle}" Foreground="{ThemeResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextBlockStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid GroupPadding="0,0,70,0"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+            <GridView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,2">
+                                <Button Foreground="{ThemeResource ApplicationHeaderForegroundThemeBrush}"
+                                    AutomationProperties.Name="Group Title"
+                                    Click="Header_Click"
+                                    Style="{StaticResource TextBlockButtonStyle}" >
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Title}" Margin="0,-11,10,10" Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="NoWrap" />
+                                        <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-11,0,10" Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="NoWrap" />
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </GridView.GroupStyle>
+        </GridView>
+
+        <!-- Back button and page title -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="backButton" Margin="39,59,39,0" Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+                        Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        VerticalAlignment="Top"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
+            <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
+        </Grid>
+        <Canvas x:Name="Canvas1">
+            <!--qwertyuiopqwertyuiopqwertyuiopasdfghjklasdfghjkl
+            dot mode...create dots on the screen. dots can be occupied or not
+            square mode. squares placed can snap to dots
+            squares placed are correlated by distance to dot
+            example 1. 
+            dot 1: is tag abc. 
+            create new tag. tag wand. 
+            tap+hold = move around.
+            -->
+            <Grid x:Name="TagGrid" Height="Auto" Width="Auto" MinHeight="100" MinWidth="100" ManipulationStarting="TagGrid_ManipulationStarting" ManipulationMode="All" ManipulationStarted="TagGrid_ManipulationStarted"  Background="Blue"
+                  ManipulationDelta="TagGrid_ManipulationDelta" Holding="TagGrid_Holding" ManipulationCompleted="TagGrid_ManipulationCompleted">
+                <StackPanel Width="Auto">
+                    <Button Content="add tag" Click="Button_Click"></Button>
+                    <Button Click="Button_Click_1">restructure tag groups ... ?</Button>
+                    <TextBox x:Name="WhatTextB"></TextBox>
+                    <GridView SelectionMode="Multiple" x:Name="theGridViewThing" ItemsSource="{Binding ElementName=pageRoot, Path=Tags}" SelectionChanged="GridView_SelectionChanged">
+                    </GridView>
+                </StackPanel>
+            </Grid>
+        </Canvas>
+        <Canvas x:Name="Canvas2">
+            <!--qwertyuiopqwertyuiopqwertyuiopasdfghjklasdfghjkl
+            dot mode...create dots on the screen. dots can be occupied or not
+            square mode. squares placed can snap to dots
+            squares placed are correlated by distance to dot
+            example 1. 
+            dot 1: is tag abc. 
+            create new tag. tag wand. 
+            tap+hold = move around.
+            -->
+            <Grid x:Name="ItemEditorGridIGuess" Height="Auto" Width="Auto" Canvas.Left="100" Canvas.Top="100" MinHeight="100" MinWidth="100" ManipulationStarting="TagGrid_ManipulationStarting" ManipulationMode="All" ManipulationStarted="TagGrid_ManipulationStarted"  Background="Blue"
+                  ManipulationDelta="TagGrid_ManipulationDelta" Holding="TagGrid_Holding" ManipulationCompleted="TagGrid_ManipulationCompleted">
+                <StackPanel Width="Auto" DataContext="{Binding ElementName=pageRoot}">
+                    <ToggleButton x:Name="EditModeToggle">edit mode</ToggleButton>
+                    <TextBox Text="{Binding SampleItem1.UniqueId, Mode=TwoWay }" Header="Unique Id"></TextBox>
+                    <TextBox Text="{Binding SampleItem1.Title, Mode=TwoWay}" Header="Title"></TextBox>
+                    <TextBox Text="{Binding SampleItem1.Subtitle, Mode=TwoWay}" Header="Subtitle"></TextBox>
+                    <TextBox Header="Image Path"></TextBox>
+                    <TextBox Text="{Binding SampleItem1.Description, Mode=TwoWay}" Header="Description"></TextBox>
+                    <TextBox Text="{Binding SampleItem1.Content, Mode=TwoWay}" Header="Content"></TextBox>
+                    <!--these guys need to talk to the girls at their table instead of talking about pissing contests at work. 3/27/2015 bw3s harvard road. Have a good time. Job Sucks. She doesn't care about what job gotta have fun, she says. should be happy agree-->
+                    <!--<Button Content="add tag" Click="Button_Click"></Button>-->
+                    <!--<TextBox x:Name="WhatTextBIGuess2"></TextBox>-->
+                    <!--<GridView SelectionMode="Multiple" x:Name="theGridViewThingNotAnymore1" ItemsSource="{Binding ElementName=pageRoot, Path=Tags}" SelectionChanged="GridView_SelectionChanged">
+                    </GridView>-->
+                </StackPanel>
+            </Grid>
+        </Canvas>
+    </Grid>
+</Page>

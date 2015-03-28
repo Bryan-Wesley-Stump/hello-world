@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2B5F4135-086E-407C-9795-E5B2BDEA648C}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>App1Windows_API_hashtag_mclogin</RootNamespace>
+    <AssemblyName>App1Windows API hashtag mclogin</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>App1Windows API hashtag mclogin_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>EF73A6ADFB2A5816613480910212914802610715</PackageCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Folder Include="Assets\next\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="canvasPage.xaml.cs">
+      <DependentUpon>canvasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Architecture.xaml.cs">
+      <DependentUpon>Architecture.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GroupedItemsPage.xaml.cs">
+      <DependentUpon>GroupedItemsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GroupDetailPage.xaml.cs">
+      <DependentUpon>GroupDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ItemDetailPage.xaml.cs">
+      <DependentUpon>ItemDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataModel\SampleDataSource.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Common\NavigationHelper.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\ObservableDictionary.cs" />
+    <Compile Include="Services\MobileServices\bryanwesleystump\push.register.cs">
+      <ConnectedServiceReference>bryanwesleystump</ConnectedServiceReference>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <Content Include="new stuff.txt" />
+    <None Include="App1Windows API hashtag mclogin_StoreKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
+    <None Include="Common\ReadMe.txt" />
+    <None Include="App1Windows API hashtag mclogin_TemporaryKey.pfx" />
+    <Content Include="Assets\2015-03-25_22-24-41.jpg" />
+    <Content Include="Assets\2015-03-25_22-25-25.jpg" />
+    <Content Include="Assets\4.png" />
+    <Content Include="Assets\5.png" />
+    <Content Include="Assets\6.png" />
+    <Content Include="Assets\7.png" />
+    <Content Include="Assets\8.png" />
+    <Content Include="Assets\9.png" />
+    <Content Include="Assets\10.png" />
+    <Content Include="Assets\Bing_-_Internet_Explorer_2015-03-25_22-25-42.jpg" />
+    <Content Include="Assets\Imgur_-_Internet_Explorer_2015-03-25_22-25-37.jpg" />
+    <Content Include="Assets\Imgur_-_Internet_Explorer_2015-03-25_22-35-00.jpg" />
+    <Content Include="Assets\LightGray.png" />
+    <Content Include="Assets\DarkGray.png" />
+    <Content Include="Assets\MediumGray.png" />
+    <Content Include="Assets\1.png" />
+    <Content Include="Assets\2.png" />
+    <Content Include="Assets\3.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-26-42.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-26-48.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-26-52.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-26-58.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-27-03.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-27-09.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-27-14.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-27-28.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-27-36.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-27-43.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-27-47.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-27-52.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-27-56.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-27-59.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-01.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-11.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-17.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-22.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-28.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-34.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-38.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-43.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-46.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-49.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-53.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-28-56.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-29-02.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-29-10.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-29-34.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-29-39.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-29-42.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-29-48.png" />
+    <Content Include="Assets\OnBase_15_What’s_New__What’s_new_in_OnBase_-_I_2015-03-25_22-29-52.png" />
+    <Content Include="Assets\OnBase_by_Hyland__Enterprise_Content_Management_S_2015-03-25_22-26-24.jpg" />
+    <Content Include="Assets\OnBase_by_Hyland__Enterprise_Content_Management_S_2015-03-25_22-26-28.jpg" />
+    <Content Include="Assets\OnBase_by_Hyland__Enterprise_Content_Management_S_2015-03-25_22-26-31.jpg" />
+    <Content Include="Assets\OnBase_ECM_Solutions__Business_Process_Improvemen_2015-03-25_22-30-08.png" />
+    <Content Include="Assets\OnBase_ECM_Solutions__Business_Process_Improvemen_2015-03-25_22-30-16.png" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-30-25.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-30-34.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-30-42.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-30-44.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-30-46.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-30-51.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-30-55.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-30-56.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-30-57.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-30-58.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-31-01.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-31-17.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-31-24.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-32-28.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-32-37.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-33-08.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-33-10.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-33-16.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-33-26.jpg" />
+    <Content Include="Assets\OnBase_Stories__OnBase_by_Hyland__OnBase_Custome_2015-03-25_22-33-37.jpg" />
+    <Content Include="Assets\Pandora_One_-_Listen_to_Pandora_with_No_Ads,_Highe_2015-03-25_22-25-29.jpg" />
+    <Content Include="Assets\Welcome_to_Facebook_-_Log_In,_Sign_Up_or_Learn_Mor_2015-03-25_22-26-02.png" />
+    <Content Include="DataModel\SampleData.json" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Logo.scale-100.png" />
+    <Content Include="Assets\SmallLogo.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\LightGray1.png" />
+    <Content Include="Assets\DarkGray1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="canvasPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataModel\Architecture.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GroupedItemsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GroupDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ItemDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.WindowsAzure.Mobile">
+      <HintPath>..\packages\WindowsAzure.MobileServices.1.2.4\lib\netcore45\Microsoft.WindowsAzure.Mobile.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Mobile.Ext">
+      <HintPath>..\packages\WindowsAzure.MobileServices.1.2.4\lib\netcore45\Microsoft.WindowsAzure.Mobile.Ext.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\win8\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\win8\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
+    <VisualStudioVersion>12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties DataModel_2SampleData_1json__JSONSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
