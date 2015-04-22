@@ -44,6 +44,14 @@ namespace App1Windows_API_hashtag_mclogin
             this.Suspending += OnSuspending;
         }
 
+        protected override void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
+        {
+            var rootFrame = new Frame();
+            rootFrame.Navigate(typeof(ItemDetailPage), args.ShareOperation);
+            Window.Current.Content = rootFrame;
+            Window.Current.Activate();
+        }
+
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.

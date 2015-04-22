@@ -4,12 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -91,6 +94,8 @@ namespace App1Windows_API_hashtag_mclogin
             this.DefaultViewModel["Groups"] = sampleDataGroups;
         }
 
+        public OnBase theBackupSDatrouce = new OnBase();
+
         /// <summary>
         /// Invoked when a group header is clicked.
         /// </summary>
@@ -125,16 +130,15 @@ namespace App1Windows_API_hashtag_mclogin
                 {
                     sb.Append(itemd.ToString());
                 }
-                clck.ListTags.Add(sb.ToString()); //update data source
+                clck.AddTag(sb.ToString());
+                //clck.ListTags.Add(sb.ToString()); //update data source
                 //clck.Title = sb.ToString();
                 //clck.OnPropertyChanged("Title");
             }
             else if (reallyStupidBoolean && stupidBoolean)
             {
-
-
                 this.SampleItem1 = e.ClickedItem as SampleDataItem;
-
+                //todo make image wheel speed variable
                 //then don't? i guess
             }
             else
@@ -361,7 +365,152 @@ namespace App1Windows_API_hashtag_mclogin
         {
             var dkdk = new OnBase();
             dkdk.ReStructureTagGroups();
+        }
+
+        private void ImageChangingContImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
 
         }
+
+        private int _sliderv;
+
+        public int SliderValue1010
+        {
+            get { return _sliderv; }
+            set
+            {
+                _sliderv = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private async void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.ViewMode = PickerViewMode.List;
+            openPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            openPicker.FileTypeFilter.Add("*");
+            IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
+            var ddGroups = await OnBase.GetGroupsAsync() as ObservableCollection<SampleDataGroup>;
+
+            SampleDataGroup ggg = null;
+            if (ddGroups.Count > 0)
+            {
+                ggg = ddGroups.First((x) => x.Title == "uncharter group");
+
+            }
+            bool iGuessSwitch = false;
+            if (ggg == null)
+            {
+                ggg = new SampleDataGroup("1", "uncharter group", "subtitle unchartered group. unsortrte", "ms-appx:///Assets/9.png", "a discription");
+                ddGroups.Add(ggg);
+                iGuessSwitch = true;
+            } //now i have the grup group and the way to add files to the group
+            if (files.Count > 0)
+            {
+                StringBuilder output = new StringBuilder("Picked files:\n");
+                // Application now has read/write access to the picked file(s) 
+                foreach (StorageFile file1 in files)
+                {
+                    var dddd = await file1.CopyAsync(ApplicationData.Current.LocalFolder);
+                    //var ee = await file1.GetBasicPropertiesAsync();
+                    //var ee1 = file1.Attributes;
+                    //var ee2 = await file1.Properties.GetDocumentPropertiesAsync();
+                    //var ee4 = await file1.Properties.GetImagePropertiesAsync();
+                    ////var ee3 = await file1.Properties.RetrievePropertiesAsync();
+                    SampleDataItem it = new SampleDataItem(file1.FolderRelativeId, file1.Name, file1.FileType, dddd.Path, file1.Properties.ToString(), file1.Attributes.ToString(), dddd);
+                    ggg.Items.Add(it);
+                    output.Append(file1.Name + "\n");
+                }
+                //OutputTextBlock.Text = output.ToString();
+            }
+            else
+            {
+                //OutputTextBlock.Text = "Operation cancelled.";
+            }
+            //var dddasdf = new OnBase();
+            if (iGuessSwitch)
+            {
+                ddGroups.Add(ggg);
+            }
+
+            groupedItemsViewSource.Source = ddGroups;
+        }
+
+        private void image_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            CompletedEveg = e;
+        }
+        public object CompletedEveg;
+        public object deltaargs;
+        public object startargs;
+
+        private void image_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            deltaargs = e;
+            e.Handled = true;
+            if(e.Cumulative.Scale > 100f)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            if (e.Cumulative.Translation.X > 100f)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            if (e.Cumulative.Translation.Y > 100f)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+
+            if (e.Cumulative.Rotation > 100f)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            if(e.Cumulative.Expansion > 100f)
+            {
+                System.Diagnostics.Debugger.Break();
+
+            }
+        }
+
+        private void image_ManipulationStarting(object sender, ManipulationStartingRoutedEventArgs e)
+        {
+            startargs = e;
+            e.Handled = true;
+        }
+
+        private void image_ManipulationInertiaStarting(object sender, ManipulationInertiaStartingRoutedEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void image_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            mobable = !mobable;
+        }
+        bool mobable = false;
+    }
+}
+
+namespace BryansFiles
+{
+    public class BryansFiles
+    {
+        public BryansFiles()
+        {
+
+        }
+        public static ObservableCollection<StorageFile> StoreageFiles = new ObservableCollection<StorageFile>();
+    }
+
+    public class BryansFile
+    {
+        public StorageFile StorageFile;
+        public SampleDataItem SampleDataItem;
     }
 }

@@ -54,7 +54,7 @@ namespace App1Windows_API_hashtag_mclogin.Data
 
     public class SampleDataItem : INotifyPropertyChanged
     {
-        public SampleDataItem(String uniqueId, String title, String subtitle, String imagePath, String description, String content)
+        public SampleDataItem(String uniqueId, String title, String subtitle, String imagePath, String description, String content, StorageFile sf = null)
         {
             this.UniqueId = uniqueId;
             this.Title = title;
@@ -63,15 +63,43 @@ namespace App1Windows_API_hashtag_mclogin.Data
             this.ImagePath = imagePath;
             this.Content = content;
             this.ListTags = new List<string>();
+            this.StorgFile = sf;
         }
 
-        public void AddTag(string tagName)
+        public async void AddTag(string tagName)
         {
             if (ListTags == null)
             {
                 ListTags = new List<string>();
             }
             ListTags.Add(tagName);
+            //now groups I guess
+            var onbaseGroups = await OnBase.GetGroupsAsync() as ObservableCollection<SampleDataGroup>;
+
+            var matches = onbaseGroups.Where((group) => group.Title.Equals(tagName));
+            if (matches.Count() == 0)
+            {
+                SampleDataGroup ggg = new SampleDataGroup(Guid.NewGuid().ToString(), tagName, "subtitle unchartered group. unsortrte", "ms-appx:///Assets/9.png", "a discription");
+                ggg.Items.Add(this);
+                onbaseGroups.Add(ggg);
+            }
+            else
+            {
+                var dddddmatch = matches.First();
+                dddddmatch.Items.Add(this);
+            }
+            //OnBase.
+        }
+        private StorageFile _storagFile;
+
+        public StorageFile StorgFile
+        {
+            get { return _storagFile; }
+            set
+            {
+                _storagFile = value;
+                OnPropertyChanged();
+            }
         }
 
         //organize groups by tag
@@ -213,66 +241,92 @@ namespace App1Windows_API_hashtag_mclogin.Data
         {
             if (this._groups.Count != 0)
                 return;
+            //todo CHANGE GROUP on click tagging enabled
+
+            StorageFolder picturesFolder = ApplicationData.Current.LocalFolder;
+
+            // StorageFolder djdjd = KnownFolders.DocumentsLibrary;
+            IReadOnlyList<StorageFile> fileList = await picturesFolder.GetFilesAsync();
+            IReadOnlyList<StorageFolder> folderList = await picturesFolder.GetFoldersAsync();
+
+            var count = fileList.Count + folderList.Count;
+            StringBuilder outputText = new StringBuilder(picturesFolder.Name + " (" + count + ")\n\n");
+
+            foreach (StorageFolder folder in folderList)
+            {
+                outputText.AppendLine("    " + folder.DisplayName + "\\");
+            }
+
+            foreach (StorageFile file in fileList)
+            {
+                BryansFiles.BryansFiles.StoreageFiles.Add(file);
+                outputText.AppendLine("    " + file.Name);
+            }
+
 
             //FileOpenPicker openPicker = new FileOpenPicker();
             //openPicker.ViewMode = PickerViewMode.List;
             //openPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
             //openPicker.FileTypeFilter.Add("*");
             //IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
-            //SampleDataGroup ggg = new SampleDataGroup("1", "uncharter group", "subtitle unchartered group. unsortrte", "ms-appx:///Assets/9.png", "a discription");
-            //if (files.Count > 0)
-            //{
-            //    StringBuilder output = new StringBuilder("Picked files:\n");
-            //    // Application now has read/write access to the picked file(s) 
-            //    foreach (StorageFile file1 in files)
-            //    {
-            //        var dddd = await file1.CopyAsync(ApplicationData.Current.LocalFolder);
-            //        var ee = await file1.GetBasicPropertiesAsync();
-            //        var ee1 = file1.Attributes;
-            //        var ee2 = await file1.Properties.GetDocumentPropertiesAsync();
-            //        var ee4 = await file1.Properties.GetImagePropertiesAsync();
-            //        //var ee3 = await file1.Properties.RetrievePropertiesAsync();
-            //        SampleDataItem it = new SampleDataItem(file1.FolderRelativeId, file1.Name, file1.FileType, dddd.Path, file1.Properties.ToString(), file1.Attributes.ToString());
-            //        ggg.Items.Add(it);
-            //        output.Append(file1.Name + "\n");
-            //    }
-            //    //OutputTextBlock.Text = output.ToString();
-            //}
-            //else
-            //{
-            //    //OutputTextBlock.Text = "Operation cancelled.";
-            //}
-
-            //this.Groups.Add(ggg);
-
-            Uri dataUri = new Uri("ms-appx:///DataModel/SampleData.json");
-
-            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
-            string jsonText = await FileIO.ReadTextAsync(file);
-            JsonObject jsonObject = JsonObject.Parse(jsonText);
-            JsonArray jsonArray = jsonObject["Groups"].GetArray();
-
-            foreach (JsonValue groupValue in jsonArray)
+            SampleDataGroup ggg = new SampleDataGroup("1", "uncharter group", "subtitle unchartered group. unsortrte", "ms-appx:///Assets/9.png", "a discription");
+            if (fileList.Count > 0)
             {
-                JsonObject groupObject = groupValue.GetObject();
-                SampleDataGroup group = new SampleDataGroup(groupObject["UniqueId"].GetString(),
-                                                            groupObject["Title"].GetString(),
-                                                            groupObject["Subtitle"].GetString(),
-                                                            groupObject["ImagePath"].GetString(),
-                                                            groupObject["Description"].GetString());
-
-                foreach (JsonValue itemValue in groupObject["Items"].GetArray())
+                // Application now has read/write access to the picked file(s) 
+                foreach (StorageFile file1 in fileList)
                 {
-                    JsonObject itemObject = itemValue.GetObject();
-                    group.Items.Add(new SampleDataItem(itemObject["UniqueId"].GetString(),
-                                                       itemObject["Title"].GetString(),
-                                                       itemObject["Subtitle"].GetString(),
-                                                       itemObject["ImagePath"].GetString(),
-                                                       itemObject["Description"].GetString(),
-                                                       itemObject["Content"].GetString()));
+                    try
+                    {
+                        var dddd = await file1.CopyAsync(ApplicationData.Current.LocalFolder);
+                        //var ee = await file1.GetBasicPropertiesAsync();
+                        //var ee1 = file1.Attributes;
+                        //var ee2 = await file1.Properties.GetDocumentPropertiesAsync();
+                        //var ee4 = await file1.Properties.GetImagePropertiesAsync();
+                        //var ee3 = await file1.Properties.RetrievePropertiesAsync();
+
+                        SampleDataItem it = new SampleDataItem(file1.FolderRelativeId, file1.Name, file1.FileType, dddd.Path, file1.Properties.ToString(), file1.Attributes.ToString());
+                        ggg.Items.Add(it);
+                    }
+                    catch { }
+
                 }
-                this.Groups.Add(group);
+                //OutputTextBlock.Text = output.ToString();
             }
+            else
+            {
+                //OutputTextBlock.Text = "Operation cancelled.";
+            }
+
+            this.Groups.Add(ggg);
+
+            //Uri dataUri = new Uri("ms-appx:///DataModel/SampleData.json");
+
+            //StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
+            //string jsonText = await FileIO.ReadTextAsync(file);
+            //JsonObject jsonObject = JsonObject.Parse(jsonText);
+            //JsonArray jsonArray = jsonObject["Groups"].GetArray();
+
+            //foreach (JsonValue groupValue in jsonArray)
+            //{
+            //    JsonObject groupObject = groupValue.GetObject();
+            //    SampleDataGroup group = new SampleDataGroup(groupObject["UniqueId"].GetString(),
+            //                                                groupObject["Title"].GetString(),
+            //                                                groupObject["Subtitle"].GetString(),
+            //                                                groupObject["ImagePath"].GetString(),
+            //                                                groupObject["Description"].GetString());
+
+            //    foreach (JsonValue itemValue in groupObject["Items"].GetArray())
+            //    {
+            //        JsonObject itemObject = itemValue.GetObject();
+            //        group.Items.Add(new SampleDataItem(itemObject["UniqueId"].GetString(),
+            //                                           itemObject["Title"].GetString(),
+            //                                           itemObject["Subtitle"].GetString(),
+            //                                           itemObject["ImagePath"].GetString(),
+            //                                           itemObject["Description"].GetString(),
+            //                                           itemObject["Content"].GetString()));
+            //    }
+            //    this.Groups.Add(group);
+            //}
         }
 
         public async void ReStructureTagGroups()

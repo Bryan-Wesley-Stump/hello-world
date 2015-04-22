@@ -4,8 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,6 +27,16 @@ namespace App1Windows_API_hashtag_mclogin
     /// </summary>
     public sealed partial class ItemDetailPage : Page
     {
+
+
+
+
+
+
+
+
+
+        //--------------------------------------------------------
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
@@ -49,6 +63,7 @@ namespace App1Windows_API_hashtag_mclogin
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += navigationHelper_LoadState;
         }
+        ShareOperation shareOperation;
 
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
@@ -63,6 +78,7 @@ namespace App1Windows_API_hashtag_mclogin
         /// session.  The state will be null the first time a page is visited.</param>
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var item = await OnBase.GetItemAsync((String)e.NavigationParameter);
             this.DefaultViewModel["Item"] = item;
@@ -83,7 +99,30 @@ namespace App1Windows_API_hashtag_mclogin
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             navigationHelper.OnNavigatedTo(e);
+            shareOperation = e.Parameter as ShareOperation;
+            if (shareOperation != null)
+            {
+
+            }
         }
+        private string sharedDataTitle;
+        private string sharedDataDescription;
+        private string sharedDataPackageFamilyName;
+        private Uri sharedDataContentSourceWebLink;
+        private Uri sharedDataContentSourceApplicationLink;
+        private Color sharedDataLogoBackgroundColor;
+        private IRandomAccessStreamReference sharedDataSquare30x30Logo;
+        private string shareQuickLinkId;
+        private string sharedText;
+        private Uri sharedWebLink;
+        private Uri sharedApplicationLink;
+        private IReadOnlyList<IStorageItem> sharedStorageItems;
+        private string sharedCustomData;
+        private string sharedHtmlFormat;
+        private IReadOnlyDictionary<string, RandomAccessStreamReference> sharedResourceMap;
+        private IRandomAccessStreamReference sharedBitmapStreamRef;
+        private IRandomAccessStreamReference sharedThumbnailStreamRef;
+        private const string dataFormatName = "http://schema.org/Book";
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
